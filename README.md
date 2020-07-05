@@ -24,7 +24,7 @@ The following R-packages should be installed:
 ## How To Use
 
 #### Installation
-install.github("lmuenter/BabyBrujin")
+`install.github("lmuenter/BabyBrujin")`
 
 #### Basic Usage
 1. Type in a sentence: 
