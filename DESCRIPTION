@@ -1,0 +1,23 @@
+Package: BabyBrujin
+Title: Assemble a coherent sentence using a De-Brujin-Graph assembly
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Lukas",
+           family = "Muenter",
+           role = c("aut", "cre"),
+           email = "lukas.muenter@uni-oldenburg.de",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Functions for a simple De-Brujin-Graph Assembly. It's just for fun really.
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
+Imports:
+    stringr,
+    magrittr
+RoxygenNote: 6.1.1
+Collate: 
+    'extract_contigs.R'
+    'get_graph.R'
+    'get_kmers.R'
+    'get_nodes.R'
+    'take_a_walk.R'
