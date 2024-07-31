@@ -15,4 +15,12 @@ pub enum Commands {
         #[clap(short, long)]
         file: String,
     },
+    Slice {
+        #[clap(short, long)]
+        file: String,
+        #[clap(long, default_value_t = 8)]
+        min_length: usize,
+        #[clap(long, default_value_t = 16)]
+        max_length: usize,
+    },
 }
