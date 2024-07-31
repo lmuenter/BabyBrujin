@@ -1,0 +1,34 @@
+name: BabyBrujin
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: cargo build --verbose
+      - name: Run tests
+        run: cargo test --verbose
+
+  create_pull_request:
+    if: github.ref != 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+          commit-message: Automatically created PR
+          title: 'Auto PR from ${GITHUB_REF##*/}'
+          body: 'This is an auto-generated PR.'
+          branch: 'auto-pr-${{ github.head_ref }}'
+          delete-branch: true
+          draft: false
