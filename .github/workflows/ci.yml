@@ -7,22 +7,24 @@ on:
       - '!main'
 
 jobs:
-  create_or_update_pull_request:
+  create_pull_request:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Create or Update Pull Request
-        uses: peter-evans/create-pull-request@v4
+      
+      - name: Get branch name
+        id: branch-name
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+      
+      - name: Create pull request
+        uses: repo-sync/pull-request@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update PR
-          title: "Pull Request from ${{ github.ref_name }}"
-          body: "This is an auto-generated PR to update changes."
-          branch: "${{ github.ref_name }}"
-          base: "main"
-          modify: true
-          draft: false
+          github_token: ${{ secrets.WORKFLOW_TOKEN }}
+          source_branch: ${{ steps.branch-name.outputs.BRANCH_NAME }}
+          destination_branch: "main"
+          pr_title: "Pull Request from ${{ steps.branch-name.outputs.BRANCH_NAME }}"
+          pr_draft: false
 
   build:
     runs-on: ubuntu-latest
