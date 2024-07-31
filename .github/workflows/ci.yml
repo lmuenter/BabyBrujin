@@ -23,8 +23,7 @@ jobs:
           github_token: ${{ secrets.WORKFLOW_TOKEN }}
           source_branch: ${{ steps.branch-name.outputs.BRANCH_NAME }}
           destination_branch: "main"
-          pr_title: "Auto PR from ${{ steps.branch-name.outputs.BRANCH_NAME }}"
-          pr_body: "This is an auto-generated PR."
+          pr_title: "Pull Request from ${{ steps.branch-name.outputs.BRANCH_NAME }}"
           pr_draft: false
 
   build:
@@ -34,6 +33,12 @@ jobs:
       - name: Build
         run: cargo build --verbose
         working-directory: ./baby_brujin
+
+  
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Run tests
         run: cargo test --verbose
         working-directory: ./baby_brujin
