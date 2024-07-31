@@ -31,6 +31,6 @@ jobs:
           commit-message: Automatically created PR
           title: 'Auto PR from ${GITHUB_REF##*/}'
           body: 'This is an auto-generated PR.'
-          branch: 'auto-pr-${{ github.head_ref }}'
+          branch: '${{ github.head_ref }}'
           delete-branch: true
           draft: false
