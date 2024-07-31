@@ -38,7 +38,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions-rs/cargo@v1
       - name: Run tests
         run: cargo test --verbose
         working-directory: ./baby_brujin
