@@ -16,26 +16,16 @@ jobs:
       - name: Get branch name
         id: branch-name
         run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
-
-      - name: Create dummy change
-        run: |
-          echo "This is a dummy change" > dummy_change.txt
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add dummy_change.txt
-          git commit -m "Add dummy change for PR"
       
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v4
+        uses: repo-sync/pull-request@v2
         with:
-          token: ${{ secrets.WORKFLOW_TOKEN }}
-          commit-message: Automatically created PR
-          title: 'Auto PR from ${{ steps.branch-name.outputs.BRANCH_NAME }}'
-          body: 'This is an auto-generated PR.'
-          branch: 'auto-pr-${{ steps.branch-name.outputs.BRANCH_NAME }}'
-          base: main
-          delete-branch: true
-          draft: true
+          github_token: ${{ secrets.WORKFLOW_TOKEN }}
+          source_branch: ${{ steps.branch-name.outputs.BRANCH_NAME }}
+          destination_branch: "main"
+          pr_title: "Auto PR from ${{ steps.branch-name.outputs.BRANCH_NAME }}"
+          pr_body: "This is an auto-generated PR."
+          pr_draft: false
 
   build:
     runs-on: ubuntu-latest
