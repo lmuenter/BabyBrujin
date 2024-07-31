@@ -34,6 +34,6 @@ jobs:
           commit-message: Automatically created PR
           title: 'Auto PR from ${{ needs.build.outputs.branch_name }}'
           body: 'This is an auto-generated PR.'
-          branch: 'auto-pr-${{ needs.build.outputs.branch_name }}'
+          branch: '${{ needs.build.outputs.branch_name }}'
           delete-branch: true
           draft: true
