@@ -1,19 +1,19 @@
 name: BabyBrujin
-
 on:
   push:
     branches:
       - '**'
       - '!main'
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      branch_name: ${{ steps.extract_branch.outputs.branch }}
     steps:
       - uses: actions/checkout@v2
       - name: Extract branch name
         id: extract_branch
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       - name: Build
         run: cargo build --verbose
         working-directory: ./baby_brujin
@@ -32,8 +32,8 @@ jobs:
         with:
           token: ${{ secrets.WORKFLOW_TOKEN }}
           commit-message: Automatically created PR
-          title: 'Auto PR from ${GITHUB_REF##*/}'
+          title: 'Auto PR from ${{ needs.build.outputs.branch_name }}'
           body: 'This is an auto-generated PR.'
-          branch: 'auto-pr-${{ env.BRANCH_NAME }}'
+          branch: 'auto-pr-${{ needs.build.outputs.branch_name }}'
           delete-branch: true
           draft: true
