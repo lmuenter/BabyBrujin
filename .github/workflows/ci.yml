@@ -19,6 +19,7 @@ jobs:
           commit-message: Update PR
           title: "Pull Request from ${{ github.ref_name }}"
           body: "This is an auto-generated PR to update changes."
+          branch: "${{ github.ref_name }}"
           base: "main"
           modify: true
           draft: false
