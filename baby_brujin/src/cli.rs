@@ -13,11 +13,11 @@ pub enum Commands {
     /// Shuffles the text in the provided file
     Shuffle {
         #[clap(short, long)]
-        file: String,
+        file: Option<String>,
     },
     Slice {
         #[clap(short, long)]
-        file: String,
+        file: Option<String>,
         #[clap(long, default_value_t = 8)]
         min_length: usize,
         #[clap(long, default_value_t = 16)]
