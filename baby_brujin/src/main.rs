@@ -24,5 +24,12 @@ fn main() {
                 Err(e) => eprintln!("Error: {}", e),
             }
         },
+        Commands::Duplicate { file, length_section_duplicated, replication_depth } => {
+            let content = read_input(file).expect("Failed to read input");
+            match commands::duplicate(&content, length_section_duplicated, replication_depth) {
+                Ok(result) => println!("{}", result),
+                Err(e) => eprintln!("Error: {}", e),
+            }
+        }
     }
 }
