@@ -22,4 +22,12 @@ pub enum Commands {
         #[clap(long, default_value_t = 16)]
         max_length: usize,
     },
+    Duplicate {
+        #[clap(short, long)]
+        file: Option<String>,
+        #[clap(long, default_value_t = 8)]
+        length_section_duplicated: usize,
+        #[clap(long, default_value_t = 4)]
+        replication_depth: usize,
+    }
 }
