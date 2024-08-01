@@ -10,7 +10,6 @@ pub struct Cli {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    /// Shuffles the text in the provided file
     Shuffle {
         #[clap(short, long)]
         file: Option<String>,
