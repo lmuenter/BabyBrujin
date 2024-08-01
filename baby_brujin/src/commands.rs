@@ -1,9 +1,7 @@
-use std::fs;
-use rand::{thread_rng, Rng};
+use rand::{thread_rng, Rng, seq::SliceRandom};
 
 
-pub fn slice_text(file_path: &str, min_length: usize, max_length: usize) -> Result<Vec<String>, std::io::Error> {
-    let content = fs::read_to_string(file_path)?;
+pub fn slice_text(content: &str, min_length: usize, max_length: usize) -> Result<Vec<String>, std::io::Error> {
     let mut rng = thread_rng();
     let mut fragments = Vec::new();
     let mut position = 0;
@@ -22,4 +20,13 @@ pub fn slice_text(file_path: &str, min_length: usize, max_length: usize) -> Resu
     }
 
     Ok(fragments)
+}
+
+
+
+pub fn shuffle_text(content: &str) -> Result<String, std::io::Error> {
+    let mut fragments = content.split_whitespace().collect::<Vec<&str>>();
+    let mut rng = thread_rng();
+    fragments.shuffle(&mut rng);
+    Ok(fragments.join(" "))
 }
